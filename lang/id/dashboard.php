@@ -1,0 +1,21 @@
+<?php
+return [
+    'mahasiswa_judul'        => 'Dashboard Mahasiswa',
+    'ssc_judul'              => 'Dashboard SSC',
+    'logistik_judul'         => 'Dashboard Logistik',
+    'selamat_datang'         => 'Selamat datang, :nama!',
+    'total_pengajuan'        => 'Total Pengajuan',
+    'menunggu_persetujuan'   => 'Menunggu Persetujuan',
+    'disetujui'              => 'Disetujui',
+    'ditolak'                => 'Ditolak',
+    'pengajuan_terbaru'      => 'Pengajuan Peminjaman Terbaru',
+    'pengajuan_terbaru_semua'=> 'Pengajuan Peminjaman Terbaru (Semua)',
+    'lihat_semua_pengajuan'  => 'Lihat Semua Pengajuan Saya',
+    'lihat_semua_verifikasi' => 'Lihat Semua Pengajuan',
+    'lihat_semua_persetujuan'=> 'Lihat Semua Persetujuan',
+    'belum_ada_pengajuan'    => 'Belum ada pengajuan peminjaman.',
+    'statistik_ruangan'      => 'Statistik Ruangan',
+    'statistik_pengajuan'    => 'Statistik Pengajuan Peminjaman',
+    'total_ruangan'          => 'Total Ruangan',
+    'diteruskan_ke_logistik' => 'Diteruskan ke Logistik',
+];

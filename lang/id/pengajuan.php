@@ -1,0 +1,21 @@
+<?php
+return [
+    'ajukan_judul'     => 'Ajukan Peminjaman Ruang',
+    'detail_judul'     => 'Detail Pengajuan Peminjaman',
+    'riwayat_judul'    => 'Riwayat Pengajuan Peminjaman Saya',
+    'subteks_riwayat'  => 'Semua pengajuan peminjaman ruang Anda.',
+    'btn_ajukan_baru'  => '+ Ajukan Peminjaman Baru',
+    'btn_ajukan'       => 'Ajukan Peminjaman',
+    'card_riwayat'     => 'Riwayat Pengajuan',
+    'kosong_riwayat'   => 'Belum ada riwayat pengajuan peminjaman.',
+    'label_ruangan'    => 'Ruangan',
+    'label_tanggal'    => 'Tanggal Peminjaman',
+    'label_jam_mulai'  => 'Jam Mulai',
+    'label_jam_selesai'=> 'Jam Selesai',
+    'label_keperluan'  => 'Keperluan',
+    'btn_batal'        => 'Batal',
+    'btn_detail'       => 'Detail',
+    'btn_kembali'      => 'Kembali',
+    'qr_peminjaman'    => 'QR Code Peminjaman',
+    'unduh_qr'         => 'Unduh QR Code',
+];
