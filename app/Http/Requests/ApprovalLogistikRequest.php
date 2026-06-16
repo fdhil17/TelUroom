@@ -7,18 +7,11 @@ use Illuminate\Validation\Rule;
 
 class ApprovalLogistikRequest extends FormRequest
 {
+    use \App\Traits\HasRoleImpersonation;
+
     public function authorize(): bool
     {
-        $user = $this->user();
-
-        if ($user->role === 'logistik') {
-            return true;
-        }
-
-        // Admin yang login sebagai Logistik
-        if ($user->role === 'admin' && $this->session()->get('admin_role') === 'logistik') {
-            return true;
-        }
+        return $this->getActiveRole() === 'logistik';
 
         return false;
     }
@@ -35,7 +28,7 @@ class ApprovalLogistikRequest extends FormRequest
     {
         return [
             'action.required' => 'Aksi wajib dipilih.',
-            'catatan_logistik.required_if' => 'Catatan wajib diisi jika menolak reservasi.',
+            'catatan_logistik.required_if' => 'Catatan wajib diisi jika menolak peminjaman.',
         ];
     }
 }

@@ -1,853 +1,851 @@
 // ============================================================
-// TelURoom â€” app.scss
-// Telkom University Surabaya Â· Room Reservation System
-// Modern SaaS UI Â· Bootstrap 5 Override
+// TELUROOM DESIGN SYSTEM v4.1
+// Enterprise SaaS UI — Monochrome Premium Edition
+// Reference: Linear, Stripe, Notion, Dropbox
 // ============================================================
 
 // ------------------------------------------------------------
 // 1. DESIGN TOKENS
 // ------------------------------------------------------------
 
-// Brand â€” Telkom University Maroon
-$telkom-maroon:       #8B1A2B;
-$telkom-maroon-dark:  #6B1221;
-$telkom-maroon-light: #B0263A;
-$telkom-maroon-pale:  #FBF0F2;
+// — Surfaces (Tonal Variations for Depth)
+$surface-base:    #F8F9FB;  // body bg — light blue-gray tint
+$surface-card:    #FFFFFF;
+$surface-overlay: #FFFFFF;
+$surface-subtle:  #F1F3F5;  // slightly darker than base for contrast
+$surface-hover:   #F9FAFB;
 
-// Neutrals â€” warm-tinted modern gray scale
-$neutral-50:  #F8F9FC;
-$neutral-100: #F1F3F8;
-$neutral-200: #E4E7EF;
-$neutral-300: #C8CDD9;
-$neutral-400: #9AA0B2;
-$neutral-500: #6B7280;
-$neutral-700: #374151;
-$neutral-900: #111827;
+// — Text (Hierarchy)
+$text-primary:   #111827;   // near black
+$text-secondary: #4B5563;   // dark gray (better contrast than 6B7280)
+$text-tertiary:  #9CA3AF;
+$text-inverse:   #FFFFFF;
 
-// Semantic colors
-$color-warning:  #F59E0B;
-$color-info:     #0EA5E9;
-$color-success:  #10B981;
-$color-danger:   #EF4444;
+// — Border
+$border-default: #E5E7EB;
+$border-strong:  #D1D5DB;
+$border-focus:   #111827;   // Premium monochrome focus
 
-// Bootstrap variable overrides â€” HARUS sebelum @import
-$primary:         $telkom-maroon;
-$secondary:       $neutral-500;
-$dark:            $neutral-900;
-$light:           $neutral-50;
+// — Brand / Interactive
+$brand:         #111827;    // PRIMARY INTERACTIVE is now Dark Slate
+$brand-dark:    #030712;
+$brand-subtle:  rgba(17, 24, 39, 0.05);
 
-$body-bg:         $neutral-50;
-$body-color:      $neutral-900;
+$brand-red:     #A50034;    // Kept only for specific semantic usage (logo, destructive)
 
-$border-radius:         0.625rem;
-$border-radius-sm:      0.375rem;
-$border-radius-lg:      0.875rem;
-$border-radius-xl:      1.25rem;
+// — Semantic
+$success:       #059669;
+$success-bg:    rgba(5, 150, 105, 0.07);
+$warning:       #D97706;
+$warning-bg:    rgba(217, 119, 6, 0.07);
+$danger:        #DC2626;
+$danger-bg:     rgba(220, 38, 38, 0.07);
+$info:          #2563EB;
+$info-bg:       rgba(37, 99, 235, 0.07);
 
-$box-shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-$box-shadow:      0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
-$box-shadow-lg:   0 10px 32px rgba(0, 0, 0, 0.09), 0 2px 8px rgba(0, 0, 0, 0.05);
+// — Typography
+$font-sans:     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-brand:    'Tandelle Bold', 'Inter', sans-serif;
+$font-display:  'Eixample Villa Extra Bold', 'Inter', sans-serif;
 
-$font-family-sans-serif: 'Figtree', system-ui, -apple-system, sans-serif;
-$font-size-base:  0.9375rem;
-$line-height-base: 1.6;
+// — Spacing scale (8px base)
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.25rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+$space-10: 2.5rem;
+$space-12: 3rem;
 
-$transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+// — Radius
+$radius-sm:   6px;
+$radius-md:   8px;
+$radius-lg:   12px;
+$radius-xl:   16px;
+$radius-2xl:  24px;   // Increased slightly for auth cards
+$radius-pill: 999px;
+
+// — Shadows (subtle depth, no heavy blacks)
+$shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+$shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.03);
+$shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.03);
+
+// — Transitions
+$transition-fast:   0.12s ease;
+$transition-base:   0.18s ease;
+$transition-medium: 0.25s ease;
 
 // ------------------------------------------------------------
-// 2. BOOTSTRAP IMPORT
+// 2. BOOTSTRAP OVERRIDES
 // ------------------------------------------------------------
+$primary:                $brand;
+$body-color:             $text-primary;
+$font-family-sans-serif: $font-sans;
+$font-size-base:         0.9375rem;
+$line-height-base:       1.65;
+$card-border-color:      $border-default;
+$card-border-radius:     $radius-lg;
+$border-radius:          $radius-md;
+$border-radius-sm:       $radius-sm;
+$border-radius-lg:       $radius-lg;
+$border-radius-pill:     $radius-pill;
 
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
 
 // ------------------------------------------------------------
 // 3. GLOBAL BASE
 // ------------------------------------------------------------
+html { font-size: 16px; }
 
 body {
-    font-family: $font-family-sans-serif;
-    background-color: $neutral-50;
-    color: $neutral-900;
+    background-color: $surface-base;
+    color: $text-primary;
+    font-family: $font-sans;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-// Custom scrollbar
-::-webkit-scrollbar            { width: 6px; height: 6px; }
-::-webkit-scrollbar-track      { background: $neutral-100; }
-::-webkit-scrollbar-thumb      { background: $neutral-300; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: $telkom-maroon; }
-
-// Global transition
-a,
-button,
-.btn,
-.nav-link,
-.card,
-.dropdown-item,
-.form-control,
-.form-select,
-.badge {
-    transition: $transition-base;
-}
-
 // ------------------------------------------------------------
-// 4. TYPOGRAPHY
+// 4. TYPOGRAPHY RULES
 // ------------------------------------------------------------
-
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+.page-title {
+    font-family: $font-brand;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
     font-weight: 700;
-    letter-spacing: -0.01em;
-    color: $neutral-900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: $text-primary;
+    margin: 0;
+    line-height: 1.2;
 }
 
-.text-primary  { color: $telkom-maroon !important; }
-.text-muted    { color: $neutral-400 !important; }
+// Overwrite auth headings to be Title Case instead of FULL CAPS
+.auth-title {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    color: $text-primary;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.section-title {
+    font-family: $font-display;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: none;
+    color: $text-primary;
+    letter-spacing: 0;
+    line-height: 1.4;
+}
+
+.card-label {
+    font-family: $font-display;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $text-secondary;
+    margin-bottom: $space-2;
+}
 
 // ------------------------------------------------------------
 // 5. NAVBAR
 // ------------------------------------------------------------
-
-.navbar {
-    background-color: #ffffff !important;
-    border-bottom: 1px solid $neutral-200;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
-    padding-top: 0;
-    padding-bottom: 0;
-    min-height: 60px;
-
-    .container {
-        align-items: stretch;
-    }
-}
-
-.navbar-brand {
-    color: $telkom-maroon !important;
-    font-weight: 800;
-    font-size: 1.2rem;
-    letter-spacing: -0.02em;
+.teluroom-navbar {
+    background: $surface-card;
+    border-bottom: 1px solid $border-default;
+    padding: 0;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0;
-
-    // Titik aksen maroon di depan nama brand
-    &::before {
-        content: '';
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background: $telkom-maroon;
-        border-radius: 50%;
-        flex-shrink: 0;
-    }
-
-    &:hover { color: $telkom-maroon-dark !important; }
 }
 
-.navbar-nav {
-    .nav-item {
-        display: flex;
-        align-items: stretch;
+.teluroom-nav-link {
+    font-family: $font-brand;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $text-secondary !important;
+    padding: $space-2 $space-3 !important;
+    border-radius: $radius-sm;
+    transition: color $transition-fast, background $transition-fast;
+    white-space: nowrap;
+    line-height: 1;
+
+    &:hover {
+        color: $text-primary !important;
+        background-color: $surface-subtle;
     }
-
-    .nav-link {
-        display: flex;
-        align-items: center;
-        padding: 0 1rem;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: $neutral-500;
-        border-bottom: 2px solid transparent;
-        border-top: 2px solid transparent;
-        white-space: nowrap;
-
-        &:hover {
-            color: $telkom-maroon;
-            background-color: $telkom-maroon-pale;
-        }
-
-        &.active {
-            color: $telkom-maroon !important;
-            font-weight: 600;
-            border-bottom-color: $telkom-maroon;
-        }
-    }
-}
-
-// User dropdown toggle
-.navbar-nav .dropdown-toggle {
-    font-weight: 500;
-    color: $neutral-700;
-
-    &::after {
-        margin-left: 0.5em;
-        vertical-align: 0.15em;
-    }
-
-    // Badge role (SSC, Mahasiswa, dll)
-    .badge {
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        background-color: $neutral-200 !important;
-        color: $neutral-700 !important;
-        border-radius: 99px;
-        padding: 0.25em 0.6em;
-    }
-
-    &:hover { color: $telkom-maroon; }
-}
-
-// Dropdown menu
-.dropdown-menu {
-    border: 1px solid $neutral-200;
-    border-radius: $border-radius-lg;
-    box-shadow: $box-shadow-lg;
-    padding: 0.5rem;
-    min-width: 180px;
-    margin-top: 0.5rem !important;
-}
-
-.dropdown-item {
-    border-radius: $border-radius-sm;
-    padding: 0.5rem 0.875rem;
-    font-size: 0.9rem;
-    color: $neutral-700;
-    font-weight: 500;
-
-    &:hover, &:focus {
-        background-color: $telkom-maroon-pale;
-        color: $telkom-maroon;
-    }
-
-    &:active, &.active {
-        background-color: $telkom-maroon;
-        color: #ffffff;
-    }
-}
-
-.dropdown-divider {
-    border-color: $neutral-200;
-    margin: 0.4rem 0;
-}
-
-.navbar-toggler {
-    border: 1px solid $neutral-200;
-    border-radius: $border-radius-sm;
-    padding: 0.4rem 0.6rem;
-
-    &:focus { box-shadow: 0 0 0 3px rgba($telkom-maroon, 0.15); }
-}
-
-// ------------------------------------------------------------
-// 6. PAGE HEADER (slot header di app.blade.php)
-// ------------------------------------------------------------
-
-.min-h-screen > header {
-    background-color: #ffffff;
-    border-bottom: 1px solid $neutral-200;
-    box-shadow: none !important;
-    padding: 1rem 0;
-
-    h2 {
-        font-size: 1.125rem !important;
-        font-weight: 700;
-        color: $neutral-900;
-        margin: 0;
+    &.active {
+        color: $brand-red !important;
+        background-color: rgba(165, 0, 52, 0.05);
     }
 }
 
 // ------------------------------------------------------------
-// 7. CARDS â€” General
+// 6. GENERAL CARDS
 // ------------------------------------------------------------
-
 .card {
-    border: 1px solid $neutral-200;
-    border-radius: $border-radius-lg;
-    box-shadow: $box-shadow-sm;
-    background-color: #ffffff;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    background: $surface-card;
+    border: 1px solid $border-default;
+    border-radius: $radius-lg;
+    box-shadow: none;
+
+    .card-header {
+        background: transparent;
+        border-bottom: 1px solid $border-default;
+        padding: 1rem 1.375rem;
+    }
+    .card-body { padding: 1.375rem; }
+    .card-footer {
+        background: transparent;
+        border-top: 1px solid $border-default;
+        padding: 0.875rem 1.375rem;
+    }
+}
+
+.teluroom-stat-card {
+    background: $surface-card;
+    border: 1px solid $border-default;
+    border-radius: $radius-lg;
+    padding: 1.25rem 1.375rem;
+    position: relative;
+    transition: transform $transition-medium, box-shadow $transition-medium;
 
     &:hover {
-        box-shadow: $box-shadow;
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
     }
-}
-
-// Card header â€” putih bersih + accent stripe maroon di kiri
-.card-header {
-    background-color: #ffffff;
-    border-bottom: 1px solid $neutral-200;
-    border-radius: $border-radius-lg $border-radius-lg 0 0 !important;
-    padding: 1rem 1.25rem 1rem 1.5rem;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    color: $neutral-900;
-    position: relative;
-
-    &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 20%;
-        height: 60%;
-        width: 3px;
-        background: $telkom-maroon;
-        border-radius: 0 2px 2px 0;
-    }
-}
-
-.card-body {
-    padding: 1.25rem;
-}
-
-.card-footer {
-    background-color: $neutral-50;
-    border-top: 1px solid $neutral-200;
-    border-radius: 0 0 $border-radius-lg $border-radius-lg !important;
-    padding: 0.875rem 1.25rem;
-}
-
-// ------------------------------------------------------------
-// 8. STAT CARDS (Dashboard)
-// Tambahkan class "stat-card" + "stat-[variant]" ke card HTML
-// ------------------------------------------------------------
-
-.stat-card {
-    border-width: 0 !important;
-    border-radius: $border-radius-xl !important;
-    box-shadow: $box-shadow-sm !important;
-    position: relative;
-    overflow: hidden;
-    cursor: default;
-
-    // Top accent bar
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        border-radius: $border-radius-xl $border-radius-xl 0 0;
-    }
-
-    .card-body {
-        padding: 1.5rem 1.25rem;
-    }
-
-    // Angka besar
-    h3 {
+    .stat-number {
+        font-family: $font-brand;
         font-size: 2.25rem;
-        font-weight: 800;
-        line-height: 1;
-        margin-bottom: 0.375rem;
-        letter-spacing: -0.03em;
-    }
-
-    p {
-        font-size: 0.8125rem;
-        font-weight: 500;
-        color: $neutral-400;
+        font-weight: 700;
+        color: $text-primary;
         margin: 0;
     }
-
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: $box-shadow !important;
-    }
-
-    // Variant Warning (Menunggu SSC)
-    &.stat-warning {
-        background: linear-gradient(145deg, #FFFBF0, #FFFFFF);
-        &::before { background: $color-warning; }
-        h3 { color: #D97706; }
-    }
-
-    // Variant Info (Menunggu Logistik)
-    &.stat-info {
-        background: linear-gradient(145deg, #F0F9FF, #FFFFFF);
-        &::before { background: $color-info; }
-        h3 { color: #0284C7; }
-    }
-
-    // Variant Success (Disetujui)
-    &.stat-success {
-        background: linear-gradient(145deg, #F0FDF4, #FFFFFF);
-        &::before { background: $color-success; }
-        h3 { color: #059669; }
-    }
-
-    // Variant Danger (Ditolak)
-    &.stat-danger {
-        background: linear-gradient(145deg, #FFF5F5, #FFFFFF);
-        &::before { background: $color-danger; }
-        h3 { color: #DC2626; }
-    }
-
-    // Variant Primary / Maroon
-    &.stat-primary {
-        background: linear-gradient(145deg, $telkom-maroon-pale, #FFFFFF);
-        &::before { background: $telkom-maroon; }
-        h3 { color: $telkom-maroon; }
-    }
 }
 
 // ------------------------------------------------------------
-// 9. ALERT
+// 7. FORMS & INPUTS
 // ------------------------------------------------------------
+.form-control,
+.form-select {
+    height: 48px;  // Enterprise auth standard height
+    border: 1px solid $border-strong; // Slightly stronger base border for clarity
+    border-radius: $radius-md;
+    padding: 0 $space-4;
+    font-size: 0.9375rem;
+    color: $text-primary;
+    background-color: $surface-card;
+    box-shadow: none;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
 
-.alert {
-    border: none;
-    border-radius: $border-radius-lg;
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.875rem 1.125rem;
-    border-left: 4px solid;
-
-    &.alert-primary {
-        background-color: $telkom-maroon-pale;
-        color: $telkom-maroon-dark;
-        border-left-color: $telkom-maroon;
-        strong { color: $telkom-maroon; }
+    &:focus {
+        border-color: $border-focus;
+        box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+        outline: none;
     }
-
-    &.alert-success {
-        background-color: #F0FDF4;
-        color: #166534;
-        border-left-color: $color-success;
-    }
-
-    &.alert-warning {
-        background-color: #FFFBEB;
-        color: #92400E;
-        border-left-color: $color-warning;
-    }
-
-    &.alert-danger {
-        background-color: #FFF5F5;
-        color: #991B1B;
-        border-left-color: $color-danger;
-    }
-
-    &.alert-info {
-        background-color: #F0F9FF;
-        color: #075985;
-        border-left-color: $color-info;
+    &::placeholder { color: $text-tertiary; }
+    &.is-invalid {
+        border-color: $danger;
+        &:focus { box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
     }
 }
 
-// ------------------------------------------------------------
-// 10. BUTTONS
-// ------------------------------------------------------------
+textarea.form-control { height: auto; padding: $space-3 $space-4; }
 
-.btn {
+.form-label {
+    font-size: 0.8125rem;
     font-weight: 600;
-    letter-spacing: 0.01em;
-    border-radius: $border-radius;
-    padding: 0.5rem 1.125rem;
+    color: $text-secondary;
+    margin-bottom: $space-2;
+    display: block;
+}
+
+.invalid-feedback {
+    font-size: 0.8rem;
+    color: $danger;
+    margin-top: $space-1;
+}
+
+// Input Group for Password Toggle
+.input-group {
+    .form-control {
+        border-right: none;
+        &:focus {
+            box-shadow: none;
+            border-color: $border-focus;
+        }
+    }
+    .input-group-text {
+        background: transparent;
+        border: 1px solid $border-strong;
+        border-left: none;
+        color: $text-secondary;
+        cursor: pointer;
+        transition: color $transition-fast;
+        &:hover { color: $text-primary; }
+    }
+    // Handle focus state for the group visually
+    &:focus-within {
+        .form-control, .input-group-text {
+            border-color: $border-focus;
+        }
+        box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+        border-radius: $radius-md;
+    }
+}
+
+// ------------------------------------------------------------
+// 8. BUTTONS
+// ------------------------------------------------------------
+.btn {
+    border-radius: $radius-md;
     font-size: 0.875rem;
+    font-weight: 500;
     line-height: 1.5;
+    padding: 0.5rem 1.125rem;
+    transition: all $transition-fast;
+    white-space: nowrap;
+
+    &:active { transform: scale(0.98); }
+    &:focus-visible { outline: 2px solid $brand; outline-offset: 2px; }
 }
 
 .btn-primary {
-    background-color: $telkom-maroon;
-    border-color: $telkom-maroon;
-    color: #ffffff;
-    box-shadow: 0 1px 3px rgba($telkom-maroon, 0.3);
+    background-color: $brand;
+    border-color: $brand;
+    color: $text-inverse;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    &:hover, &:focus-visible {
-        background-color: $telkom-maroon-dark;
-        border-color: $telkom-maroon-dark;
-        box-shadow: 0 4px 12px rgba($telkom-maroon, 0.35);
-        transform: translateY(-1px);
-        color: #ffffff;
-    }
-
-    &:active {
-        background-color: $telkom-maroon-dark;
-        transform: translateY(0);
-        box-shadow: none;
+    &:hover, &:focus {
+        background-color: $brand-dark;
+        border-color: $brand-dark;
+        color: $text-inverse;
     }
 }
 
 .btn-outline-primary {
-    color: $telkom-maroon;
-    border-color: $telkom-maroon;
-    background-color: transparent;
+    border-color: $border-default;
+    color: $text-primary;
+    background: transparent;
 
-    &:hover {
-        background-color: $telkom-maroon;
-        border-color: $telkom-maroon;
-        color: #ffffff;
-        box-shadow: 0 4px 12px rgba($telkom-maroon, 0.3);
-        transform: translateY(-1px);
+    &:hover, &:focus {
+        background-color: $surface-subtle;
+        border-color: $border-strong;
+        color: $text-primary;
     }
-}
-
-.btn-secondary {
-    background-color: $neutral-100;
-    border-color: $neutral-200;
-    color: $neutral-700;
-
-    &:hover {
-        background-color: $neutral-200;
-        border-color: $neutral-300;
-        color: $neutral-900;
-    }
-}
-
-.btn-sm {
-    padding: 0.3rem 0.75rem;
-    font-size: 0.8125rem;
-    border-radius: $border-radius-sm;
-}
-
-.btn-lg {
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    border-radius: $border-radius-lg;
 }
 
 // ------------------------------------------------------------
-// 11. TABLES
+// 9. AUTHENTICATION SHELL
 // ------------------------------------------------------------
+.teluroom-auth-wrap {
+    min-height: 100vh;
+    background-color: $surface-base;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-6 $space-4;
+}
 
-.table {
-    font-size: 0.9rem;
-    color: $neutral-700;
+.teluroom-auth-brand {
+    text-align: center;
+    margin-bottom: $space-8;
 
-    tbody tr {
-        transition: background-color 0.15s ease;
-
-        &:hover { background-color: $neutral-50; }
-    }
-
-    &.table-bordered {
-        border-color: $neutral-200;
-
-        th, td { border-color: $neutral-200; }
-    }
-
-    // Override semua thead â€” termasuk .table-light yang ada di blade
-    thead th,
-    thead.table-light th {
-        background-color: $neutral-100 !important;
-        color: $neutral-500 !important;
-        border-color: $neutral-200 !important;
-        font-size: 0.75rem;
+    .brand-name {
+        font-family: $font-brand;
+        font-size: 1.5rem;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.07em;
-        padding: 0.75rem 1rem;
-        vertical-align: middle;
+        color: $text-primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $space-2;
     }
-
-    tbody td {
-        padding: 0.75rem 1rem;
-        vertical-align: middle;
-        border-color: $neutral-200;
-    }
-}
-
-// ------------------------------------------------------------
-// 12. BADGES
-// ------------------------------------------------------------
-
-.badge {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    border-radius: 99px;
-    padding: 0.3em 0.7em;
-}
-
-.badge.bg-primary   { background-color: $telkom-maroon !important; }
-.badge.bg-secondary { background-color: $neutral-200 !important; color: $neutral-700 !important; }
-.badge.bg-warning   { background-color: #FEF3C7 !important; color: #92400E !important; }
-.badge.bg-info      { background-color: #E0F2FE !important; color: #075985 !important; }
-.badge.bg-success   { background-color: #D1FAE5 !important; color: #065F46 !important; }
-.badge.bg-danger    { background-color: #FEE2E2 !important; color: #991B1B !important; }
-
-// Khusus badge Bootstrap yang pakai text-dark
-.badge.bg-warning.text-dark { color: #92400E !important; }
-.badge.bg-info.text-dark    { color: #075985 !important; }
-
-// ------------------------------------------------------------
-// 13. FORMS
-// ------------------------------------------------------------
-
-.form-control,
-.form-select {
-    border-color: $neutral-300;
-    border-radius: $border-radius;
-    font-size: 0.9rem;
-    padding: 0.5rem 0.875rem;
-    color: $neutral-900;
-    background-color: #ffffff;
-
-    &:focus {
-        border-color: $telkom-maroon;
-        box-shadow: 0 0 0 3px rgba($telkom-maroon, 0.12);
-        outline: none;
-    }
-
-    &::placeholder { color: $neutral-400; }
-}
-
-.form-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: $neutral-700;
-    margin-bottom: 0.375rem;
-}
-
-// ------------------------------------------------------------
-// 14. PAGINATION
-// ------------------------------------------------------------
-
-.pagination {
-    .page-link {
-        border-color: $neutral-200;
-        color: $neutral-700;
-        border-radius: $border-radius-sm !important;
-        margin: 0 2px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        padding: 0.4rem 0.75rem;
-
-        &:hover {
-            background-color: $telkom-maroon-pale;
-            border-color: $telkom-maroon;
-            color: $telkom-maroon;
-        }
-
-        &:focus { box-shadow: 0 0 0 3px rgba($telkom-maroon, 0.15); }
-    }
-
-    .page-item.active .page-link {
-        background-color: $telkom-maroon;
-        border-color: $telkom-maroon;
-        color: #ffffff;
-    }
-
-    .page-item.disabled .page-link {
-        color: $neutral-300;
-        background-color: $neutral-50;
-        border-color: $neutral-200;
-    }
-}
-
-// ------------------------------------------------------------
-// 15. MISC & RESPONSIVE
-// ------------------------------------------------------------
-
-.min-h-screen {
-    background-color: $neutral-50;
-    min-height: 100vh;
-}
-
-main > .container,
-main > div > .container {
-    padding-top: 1.75rem;
-    padding-bottom: 2.5rem;
-}
-
-@media (max-width: 991.98px) {
-    .navbar-collapse {
-        border-top: 1px solid $neutral-200;
-        margin-top: 0.5rem;
-        padding: 0.5rem 0;
-    }
-
-    .navbar-nav .nav-link {
-        padding: 0.6rem 0.75rem;
-        border-bottom: none;
-        border-radius: $border-radius-sm;
-
-        &.active {
-            background-color: $telkom-maroon-pale;
-            border-bottom: none;
-        }
-    }
-}
-
-// ------------------------------------------------------------
-// 16. CARD HEADER DARK VARIANT
-// Tambahkan class "card-header-dark" ke card-header yang ingin
-// tampil dengan background charcoal (identitas visual Telkom)
-// ------------------------------------------------------------
-
-.card-header-dark {
-    background-color: #2B2B2B;
-    color: #ffffff;
-    border-bottom: none;
-
-    &::before {
-        background: #ffffff;
-        opacity: 0.25;
-    }
-}
-
-// ------------------------------------------------------------
-// 17. RUANGAN CARD
-// ------------------------------------------------------------
-
-.ruangan-card {
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: $box-shadow !important;
-    }
-}
-
-.ruangan-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.ruangan-meta-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.4rem 0.75rem;
-    background-color: $neutral-50;
-    border-radius: $border-radius-sm;
-    font-size: 0.85rem;
-}
-
-.ruangan-meta-label {
-    color: $neutral-400;
-    font-weight: 500;
-}
-
-.ruangan-meta-value {
-    color: $neutral-900;
-    font-weight: 600;
-}
-
-// ------------------------------------------------------------
-// 18. DETAIL GRID (halaman show reservasi)
-// ------------------------------------------------------------
-
-.detail-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid $neutral-100;
-    gap: 1rem;
-
-    &:last-child {
-        border-bottom: none;
-    }
-}
-
-.detail-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: $neutral-400;
-    min-width: 160px;
-    flex-shrink: 0;
-}
-
-.detail-value {
-    font-size: 0.9rem;
-    color: $neutral-900;
-    font-weight: 500;
-    text-align: right;
-}
-
-// ------------------------------------------------------------
-// 19. AUTH PAGES (Login)
-// ------------------------------------------------------------
-
-.teluroom-auth-bg {
-    background: linear-gradient(135deg, #8B1A2B 0%, #2B2B2B 100%);
-    min-height: 100vh;
 }
 
 .teluroom-auth-card {
-    width: 26rem;
-    border-radius: $border-radius-xl !important;
-    border: none;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+    background: $surface-card;
+    border: 1px solid $border-default;
+    border-radius: $radius-2xl;
+    box-shadow: $shadow-lg;
+    padding: 3rem;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
 
-    .card-body {
-        padding: 2rem !important;
+    .auth-subheading {
+        font-size: 0.875rem;
+        color: $text-secondary;
+        margin: 0 0 $space-8;
+    }
+
+    hr {
+        border-color: $border-default;
+        margin: $space-6 0;
+    }
+
+    a {
+        color: $text-secondary;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color $transition-fast;
+        &:hover {
+            color: $text-primary;
+            text-decoration: underline;
+        }
     }
 }
 
-// Role selector (SSC / Logistik)
-.auth-role-option {
-    border: 1.5px solid $neutral-200;
-    border-radius: $border-radius;
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    transition: $transition-base;
-    position: relative;
+@media (max-width: 480px) {
+    .teluroom-auth-card {
+        padding: 2rem 1.5rem;
+        border-radius: $radius-xl;
+        box-shadow: $shadow-sm; // Less heavy on mobile
+    }
+}
 
-    .form-check-input {
+// Admin Role Selector
+.teluroom-role-option {
+    flex: 1;
+    border: 1px solid $border-strong;
+    border-radius: $radius-md;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all $transition-fast;
+    position: relative;
+    background: transparent;
+
+    input[type="radio"] {
         position: absolute;
         opacity: 0;
         width: 0;
         height: 0;
     }
-
-    .form-check-label {
-        cursor: pointer;
-        font-size: 0.875rem;
-
-        small { font-size: 0.78rem; }
+    label { cursor: pointer; display: block; margin: 0; }
+    .role-name {
+        font-weight: 600;
+        font-size: 0.9375rem;
+        color: $text-primary;
+        display: block;
+        margin-bottom: 2px;
+    }
+    .role-desc {
+        font-size: 0.75rem;
+        color: $text-secondary;
+        line-height: 1.3;
     }
 
     &:hover {
-        border-color: $telkom-maroon;
-        background-color: $telkom-maroon-pale;
+        border-color: $border-focus;
+        background: $surface-hover;
     }
-
     &.active {
-        border-color: $telkom-maroon;
-        background-color: $telkom-maroon-pale;
-
-        .fw-bold { color: $telkom-maroon; }
-    }
-}
-
-@media (max-width: 575.98px) {
-    .teluroom-auth-card {
-        width: calc(100vw - 2rem);
+        border-color: $border-focus;
+        background: $surface-subtle;
+        box-shadow: inset 0 0 0 1px $border-focus;
+        .role-name { color: $text-primary; }
     }
 }
 
 // ------------------------------------------------------------
-// 20. AUTH CARD FORM FIX
+// 10. EMPTY STATE
 // ------------------------------------------------------------
-
-.teluroom-auth-card {
-    .form-label {
-        color: #374151 !important;
+.teluroom-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-12 $space-8;
+    text-align: center;
+    color: $text-secondary;
+    background: transparent;
+}
+// Add validation state support for input group
+.input-group {
+    .form-control.is-invalid {
+        border-color: $danger;
+        & ~ .input-group-text {
+            border-color: $danger;
+        }
     }
-
-    a {
-        &.text-primary { color: $telkom-maroon !important; }
-        &.text-muted   { color: #6B7280 !important; }
+    &:focus-within {
+        .form-control.is-invalid, .form-control.is-invalid ~ .input-group-text {
+            border-color: $danger;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
     }
-
-    p.text-muted { color: #6B7280 !important; }
-    small.text-muted { color: #6B7280 !important; }
-    .text-muted { color: #6B7280 !important; }
+    .input-group-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+        height: 48px;
+    }
 }
 
-@media (max-width: 575.98px) {
-    .stat-card h3 { font-size: 1.875rem; }
+// ------------------------------------------------------------
+// APP SHELL ARCHITECTURE
+// ------------------------------------------------------------
+
+$sidebar-width: 250px;
+$topbar-height: 64px;
+
+body {
+    background-color: $surface-base;
+    color: $text-primary;
+    font-family: $font-sans;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+// Sidebar
+.teluroom-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: $sidebar-width;
+    background-color: $surface-base;
+    border-right: 1px solid $border-default;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    .sidebar-brand {
+        padding: $space-6;
+        display: flex;
+        align-items: center;
+        gap: $space-3;
+        img {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+        }
+    }
+
+    .sidebar-nav {
+        flex: 1;
+        padding: 0 $space-4 $space-4 $space-4;
+        display: flex;
+        flex-direction: column;
+        gap: $space-1;
+    }
+
+    .sidebar-heading {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: $text-tertiary;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: $space-6 0 $space-2 $space-3;
+    }
+
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: $space-3;
+        padding: $space-2 $space-3;
+        border-radius: $radius-md;
+        color: $text-secondary;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all $transition-fast;
+
+        svg {
+            color: $text-tertiary;
+            transition: color $transition-fast;
+        }
+
+        &:hover {
+            background-color: $surface-subtle;
+            color: $text-primary;
+            svg {
+                color: $text-secondary;
+            }
+        }
+
+        &.active {
+            background-color: $brand-subtle;
+            color: $text-primary;
+            font-weight: 600;
+            svg {
+                color: $text-primary;
+            }
+        }
+    }
+}
+
+// Main Content Wrapper
+.teluroom-wrapper {
+    margin-left: $sidebar-width;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+// Topbar
+.teluroom-topbar {
+    height: $topbar-height;
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid $border-default;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $space-8;
+
+    .topbar-left {
+        display: flex;
+        align-items: center;
+    }
+
+    .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: $space-4;
+    }
+
+    .teluroom-breadcrumb {
+        font-size: 0.875rem;
+        color: $text-tertiary;
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: $space-2;
+
+            &.active {
+                color: $text-primary;
+                font-weight: 500;
+            }
+
+            .separator {
+                color: $border-strong;
+            }
+
+            a {
+                color: $text-secondary;
+                text-decoration: none;
+                transition: color $transition-fast;
+                &:hover {
+                    color: $text-primary;
+                }
+            }
+        }
+    }
+}
+
+// Main Canvas
+.teluroom-main {
+    flex: 1;
+    padding: $space-8;
+    max-width: 1440px; // Prevent stretching on ultra-wide screens
+    width: 100%;
+    margin: 0 auto;
+}
+
+// Page Hierarchy
+.teluroom-page-title {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $text-primary;
+    margin-bottom: $space-4;
+}
+
+.teluroom-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $space-6;
+    gap: $space-4;
+
+    .toolbar-search {
+        flex: 1;
+        max-width: 400px;
+        position: relative;
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $text-tertiary;
+        }
+        input {
+            padding-left: 2.5rem;
+            border-radius: $radius-lg;
+            height: 40px;
+        }
+    }
+
+    .toolbar-actions {
+        display: flex;
+        align-items: center;
+        gap: $space-3;
+    }
+}
+
+// Unified Card (No more card-header-dark)
+.teluroom-card {
+    background: $surface-card;
+    border: 1px solid $border-default;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+
+    .card-body {
+        padding: $space-6;
+    }
+}
+
+// Empty State Component
+.teluroom-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-12 $space-4;
+    text-align: center;
+
+    svg {
+        color: $border-strong;
+        margin-bottom: $space-4;
+    }
+
+    h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: $space-2;
+    }
+
+    p {
+        font-size: 0.875rem;
+        color: $text-secondary;
+        max-width: 400px;
+        margin: 0 auto $space-6;
+    }
+}
+
+// User Dropdown in Topbar
+.teluroom-user-dropdown {
+    .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+        padding: $space-1 $space-2;
+        border-radius: $radius-md;
+        transition: background-color $transition-fast;
+        text-decoration: none;
+        color: $text-primary;
+
+        &:hover {
+            background-color: $surface-subtle;
+        }
+
+        &::after {
+            display: none; // Hide bootstrap caret
+        }
+    }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: $radius-pill;
+        background-color: $brand;
+        color: $surface-card;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        .name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        .role {
+            font-size: 0.6875rem;
+            color: $text-secondary;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    }
+}
+
+
+// Form Standard V1
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-secondary;
+    margin-bottom: $space-2;
+}
+
+.teluroom-input {
+    height: 48px;
+    border: 1px solid $border-default;
+    border-radius: $radius-md;
+    font-size: 0.875rem;
+    color: $text-primary;
+    padding: 0 $space-4;
+    transition: all $transition-fast;
+
+    &:focus {
+        border-color: $border-focus;
+        box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.1);
+        outline: none;
+    }
+
+    &.is-invalid {
+        border-color: $danger;
+        &:focus {
+            box-shadow: 0 0 0 4px $danger-bg;
+        }
+    }
+}
+
+textarea.teluroom-input {
+    height: auto;
+    padding: $space-3 $space-4;
+}
+
+.invalid-feedback {
+    font-size: 0.75rem;
+    color: $danger;
+    margin-top: $space-1;
 }

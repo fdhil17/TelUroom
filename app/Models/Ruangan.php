@@ -26,4 +26,9 @@ class Ruangan extends Model
     {
         return $this->hasMany(Reservasi::class);
     }
+
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = \App\Enums\StatusEnum::safeParse($value);
+    }
 }

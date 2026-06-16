@@ -7,18 +7,11 @@ use Illuminate\Validation\Rule;
 
 class ApprovalSscRequest extends FormRequest
 {
+    use \App\Traits\HasRoleImpersonation;
+
     public function authorize(): bool
     {
-        $user = $this->user();
-
-        if ($user->role === 'ssc') {
-            return true;
-        }
-
-        // Admin yang login sebagai SSC
-        if ($user->role === 'admin' && $this->session()->get('admin_role') === 'ssc') {
-            return true;
-        }
+        return $this->getActiveRole() === 'ssc';
 
         return false;
     }
@@ -35,7 +28,7 @@ class ApprovalSscRequest extends FormRequest
     {
         return [
             'action.required' => 'Aksi wajib dipilih.',
-            'catatan_ssc.required_if' => 'Catatan wajib diisi jika menolak reservasi.',
+            'catatan_ssc.required_if' => 'Catatan wajib diisi jika menolak peminjaman.',
         ];
     }
 }

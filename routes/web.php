@@ -1,18 +1,13 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LocaleController;
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
-
-// Switcher Bahasa (ID/EN) — bisa diakses guest maupun user login
-Route::post('/locale/{locale}', [LocaleController::class, 'switch'])
-    ->name('locale.switch')
-    ->whereIn('locale', ['id', 'en']);
 
 // Halaman verifikasi QR Code (publik, untuk petugas scan)
 Route::get('/verifikasi/{reservasi}', [\App\Http\Controllers\VerifikasiController::class, 'show'])->name('verifikasi.show');

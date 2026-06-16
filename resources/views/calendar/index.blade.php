@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="fs-4 fw-bold text-dark">Kalender Jadwal & Reservasi</h2>
+        <h2 class="fs-4 fw-bold text-dark">Kalender Jadwal & Peminjaman</h2>
     </x-slot>
 
     <div class="container py-4">
@@ -20,7 +20,7 @@
                     <div class="col-md-8 text-md-end mt-3 mt-md-0">
                         <span class="badge" style="background-color: #0d6efd;">&nbsp;</span> Jadwal Kuliah
                         &nbsp;&nbsp;
-                        <span class="badge" style="background-color: #198754;">&nbsp;</span> Reservasi Disetujui
+                        <span class="badge" style="background-color: #198754;">&nbsp;</span> Peminjaman Disetujui
                     </div>
                 </div>
             </div>

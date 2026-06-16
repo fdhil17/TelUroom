@@ -1,19 +1,31 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="fs-4 fw-bold text-dark">Edit Ruangan</h2>
+    <x-slot name="breadcrumb">
+        <div class="breadcrumb-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="#">Data Master</a>
+        </div>
+        <div class="breadcrumb-item">
+            <span class="separator">/</span>
+            <a href="{{ route('logistik.ruangan.index') }}">Kelola Ruangan</a>
+        </div>
+        <div class="breadcrumb-item active">
+            <span class="separator">/</span>
+            Edit Ruangan
+        </div>
     </x-slot>
 
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-header fw-bold card-header-dark">Form Ruangan</div>
-                    <div class="card-body p-4">
-                        <form method="POST" action="{{ route('logistik.ruangan.update', $ruangan) }}">
-                            @method('PUT')
-                            @include('logistik.ruangan._form')
-                        </form>
-                    </div>
+    <x-slot name="header">
+        Edit Ruangan {{ $ruangan->kode_ruangan }}
+    </x-slot>
+
+    <div class="d-flex justify-content-center">
+        <div style="width: 100%; max-width: 800px;">
+            <div class="teluroom-card mb-4">
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" action="{{ route('logistik.ruangan.update', $ruangan) }}" novalidate>
+                        @method('PUT')
+                        @include('logistik.ruangan._form')
+                    </form>
                 </div>
             </div>
         </div>

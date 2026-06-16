@@ -7,9 +7,11 @@ use Illuminate\Validation\Rule;
 
 class RuanganRequest extends FormRequest
 {
+    use \App\Traits\HasRoleImpersonation;
+
     public function authorize(): bool
     {
-        return $this->user()->role === 'logistik';
+        return $this->getActiveRole() === 'logistik';
     }
 
     public function rules(): array

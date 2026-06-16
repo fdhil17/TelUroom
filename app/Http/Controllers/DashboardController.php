@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    use \App\Traits\HasRoleImpersonation;
     public function __construct(
         protected RuanganService $ruanganService,
         protected ReservasiService $reservasiService,
@@ -19,9 +20,9 @@ class DashboardController extends Controller
         $user = $request->user();
 
         // Tentukan role efektif
-        $role = $user->role;
+        $role = $this->getActiveRole($request);
         if ($role === 'admin') {
-            $role = $request->session()->get('admin_role', 'ssc');
+            $role = 'ssc'; // Fallback aman jika admin belum memilih role
         }
 
         return match ($role) {

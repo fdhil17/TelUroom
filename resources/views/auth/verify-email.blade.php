@@ -1,31 +1,34 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
-
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+    <div class="teluroom-auth-card">
+        <div class="text-center mb-4 pb-2">
+            <h1 class="auth-title mb-2">Verifikasi Email</h1>
+            <p class="auth-subheading mb-0">Terima kasih telah mendaftar! Sebelum memulai, mohon verifikasi alamat email Anda melalui tautan yang baru saja kami kirimkan.</p>
         </div>
-    @endif
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
-
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+        @if (session('status') == 'verification-link-sent')
+            <div class="mb-4 font-medium text-sm text-green-600" style="color: #059669; font-size: 0.875rem;">
+                Tautan verifikasi baru telah dikirim ke alamat email yang Anda berikan saat registrasi.
             </div>
-        </form>
+        @else
+            <p class="auth-subheading text-center mb-4">
+                Jika Anda tidak menerima email tersebut, kami dapat mengirimkan ulang.
+            </p>
+        @endif
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
+        <div class="d-flex flex-column gap-3 mt-2">
+            <form method="POST" action="{{ route('verification.send') }}">
+                @csrf
+                <button type="submit" class="btn btn-primary w-100">
+                    Kirim Ulang Tautan Verifikasi
+                </button>
+            </form>
 
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
-            </button>
-        </form>
+            <form method="POST" action="{{ route('logout') }}" class="text-center">
+                @csrf
+                <button type="submit" class="btn btn-link text-secondary text-decoration-none" style="font-size: 0.8125rem;">
+                    Keluar (Log Out)
+                </button>
+            </form>
+        </div>
     </div>
 </x-guest-layout>

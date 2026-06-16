@@ -40,4 +40,9 @@ class LogRuangan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = \App\Enums\StatusEnum::safeParse($value);
+    }
 }

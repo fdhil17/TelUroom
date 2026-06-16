@@ -13,7 +13,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ReservasiService
 {
-    public function cekStatusKetersediaan(Ruangan $ruangan, string $tanggal, string $jamMulai, string $jamSelesai): string
+    public function cekStatusKetersediaan(Ruangan $ruangan, string $tanggal, string $jamMulai, string $jamSelesai, ?int $exceptReservasiId = null): string
     {
         if ($ruangan->status === 'maintenance') {
             return 'maintenance';
@@ -33,16 +33,19 @@ class ReservasiService
             return 'digunakan_kuliah';
         }
 
-        $bentrokReservasi = Reservasi::where('ruangan_id', $ruangan->id)
+        $query = Reservasi::where('ruangan_id', $ruangan->id)
             ->where('tanggal_reservasi', $tanggal)
             ->whereNotIn('status', ['ditolak_ssc', 'ditolak_logistik'])
             ->where(function ($q) use ($jamMulai, $jamSelesai) {
                 $q->where('jam_mulai', '<', $jamSelesai)
                   ->where('jam_selesai', '>', $jamMulai);
-            })
-            ->exists();
+            });
 
-        if ($bentrokReservasi) {
+        if ($exceptReservasiId !== null) {
+            $query->where('id', '!=', $exceptReservasiId);
+        }
+
+        if ($query->exists()) {
             return 'sudah_direservasi';
         }
 
@@ -92,7 +95,8 @@ class ReservasiService
         $query = Reservasi::with('user', 'ruangan');
 
         if ($status) {
-            $query->where('status', $status);
+            $parsedStatus = \App\Enums\StatusEnum::safeParse($status);
+            $query->where('status', $parsedStatus);
         } else {
             $query->whereIn('status', ['menunggu_ssc', 'menunggu_logistik', 'disetujui', 'ditolak_ssc', 'ditolak_logistik']);
         }
@@ -105,6 +109,24 @@ class ReservasiService
         if ($reservasi->status !== 'menunggu_ssc') {
             throw ValidationException::withMessages([
                 'status' => 'Reservasi ini tidak dalam status menunggu persetujuan SSC.',
+            ]);
+        }
+
+        $statusKetersediaan = $this->cekStatusKetersediaan(
+            $reservasi->ruangan,
+            $reservasi->tanggal_reservasi->format('Y-m-d'),
+            $reservasi->jam_mulai,
+            $reservasi->jam_selesai,
+            $reservasi->id
+        );
+
+        if ($statusKetersediaan !== 'tersedia') {
+            $alasan = $statusKetersediaan === 'digunakan_kuliah' 
+                ? 'Ruangan telah dialokasikan untuk jadwal kuliah.' 
+                : 'Ruangan telah disetujui atau sedang dalam proses untuk peminjaman lain.';
+                
+            throw ValidationException::withMessages([
+                'action' => 'Persetujuan gagal. ' . $alasan,
             ]);
         }
 
@@ -153,7 +175,8 @@ class ReservasiService
         $query = Reservasi::with('user', 'ruangan');
 
         if ($status) {
-            $query->where('status', $status);
+            $parsedStatus = \App\Enums\StatusEnum::safeParse($status);
+            $query->where('status', $parsedStatus);
         } else {
             $query->whereIn('status', ['menunggu_logistik', 'disetujui', 'ditolak_logistik']);
         }
@@ -166,6 +189,24 @@ class ReservasiService
         if ($reservasi->status !== 'menunggu_logistik') {
             throw ValidationException::withMessages([
                 'status' => 'Reservasi ini tidak dalam status menunggu persetujuan Logistik.',
+            ]);
+        }
+
+        $statusKetersediaan = $this->cekStatusKetersediaan(
+            $reservasi->ruangan,
+            $reservasi->tanggal_reservasi->format('Y-m-d'),
+            $reservasi->jam_mulai,
+            $reservasi->jam_selesai,
+            $reservasi->id
+        );
+
+        if ($statusKetersediaan !== 'tersedia') {
+            $alasan = $statusKetersediaan === 'digunakan_kuliah' 
+                ? 'Ruangan telah dialokasikan untuk jadwal kuliah.' 
+                : 'Ruangan telah disetujui atau sedang dalam proses untuk peminjaman lain.';
+                
+            throw ValidationException::withMessages([
+                'action' => 'Persetujuan gagal. ' . $alasan,
             ]);
         }
 

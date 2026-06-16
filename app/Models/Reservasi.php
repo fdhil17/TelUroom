@@ -63,4 +63,9 @@ class Reservasi extends Model
     {
         return $this->status === 'disetujui';
     }
+
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = \App\Enums\StatusEnum::safeParse($value);
+    }
 }

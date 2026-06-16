@@ -8,18 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
+    use \App\Traits\HasRoleImpersonation;
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         if (!$request->user()) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
 
-        $userRole = $request->user()->role;
-
-        // Jika user adalah admin, ambil role dari session
-        if ($userRole === 'admin') {
-            $userRole = $request->session()->get('admin_role', 'admin');
-        }
+        $userRole = $this->getActiveRole($request);
 
         if (!in_array($userRole, $roles)) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');

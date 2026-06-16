@@ -2,8 +2,8 @@
 return [
     // Login Mahasiswa
     'login_mahasiswa' => 'Login Mahasiswa',
-    'tagline_login' => 'Sistem Peminjaman Ruang Kelas TelURoom',
-    'tagline_mahasiswa' => 'Sistem Peminjaman Ruang Kelas',
+    'tagline_login' => 'Layanan Peminjaman Kelas TelUroom',
+    'tagline_mahasiswa' => 'Layanan Peminjaman Kelas TelUroom',
     'email' => 'Email',
     'ingat_saya' => 'Ingat Saya',
     'masuk' => 'Masuk',
