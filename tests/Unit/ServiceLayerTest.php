@@ -352,7 +352,7 @@ describe('RuanganService', function () {
         Ruangan::factory()->create(['kode_ruangan' => 'A101', 'lantai' => 1]);
         Ruangan::factory()->create(['kode_ruangan' => 'A102', 'lantai' => 1]);
         Ruangan::factory()->create(['kode_ruangan' => 'B201', 'lantai' => 2]);
-        
+
         $all = $this->service->getAll();
         expect($all->total())->toBe(3);
 
@@ -396,7 +396,7 @@ describe('RuanganService', function () {
 
     test('delete() berhasil menghapus ruangan', function () {
         $ruangan = Ruangan::factory()->create();
-        
+
         $result = $this->service->delete($ruangan);
 
         expect($result)->toBeTrue();
@@ -429,7 +429,7 @@ describe('JadwalAkademikService', function () {
     test('getAll() mengembalikan jadwal akademik dengan filter', function () {
         JadwalAkademik::factory()->create(['ruangan_id' => $this->ruangan->id, 'hari' => 'senin']);
         JadwalAkademik::factory()->create(['ruangan_id' => $this->ruangan->id, 'hari' => 'selasa']);
-        
+
         $ruanganLain = Ruangan::factory()->create();
         JadwalAkademik::factory()->create(['ruangan_id' => $ruanganLain->id, 'hari' => 'senin']);
 
