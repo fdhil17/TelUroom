@@ -34,7 +34,7 @@ class ReservasiService
         }
 
         $query = Reservasi::where('ruangan_id', $ruangan->id)
-            ->where('tanggal_reservasi', $tanggal)
+            ->whereDate('tanggal_reservasi', $tanggal)
             ->whereNotIn('status', ['ditolak_ssc', 'ditolak_logistik'])
             ->where(function ($q) use ($jamMulai, $jamSelesai) {
                 $q->where('jam_mulai', '<', $jamSelesai)

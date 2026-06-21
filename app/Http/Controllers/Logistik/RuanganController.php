@@ -56,9 +56,13 @@ class RuanganController extends Controller
 
     public function destroy(Ruangan $ruangan)
     {
-        $this->ruanganService->delete($ruangan);
-
-        return redirect()->route('logistik.ruangan.index')
-            ->with('success', 'Ruangan berhasil dihapus.');
+        try {
+            $this->ruanganService->delete($ruangan);
+            return redirect()->route('logistik.ruangan.index')
+                ->with('success', 'Ruangan berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('logistik.ruangan.index')
+                ->with('error', $e->getMessage());
+        }
     }
 }

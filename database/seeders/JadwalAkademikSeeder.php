@@ -11,7 +11,7 @@ class JadwalAkademikSeeder extends Seeder
 {
     public function run(): void
     {
-        $logistik = User::where('role', 'logistik')->first();
+        $admin = User::where('role', 'admin')->first();
         $ruangan102 = Ruangan::where('kode_ruangan', '1.02')->first();
         $ruangan220 = Ruangan::where('kode_ruangan', '2.20')->first();
 
@@ -22,7 +22,7 @@ class JadwalAkademikSeeder extends Seeder
             'jam_selesai' => '10:00',
             'mata_kuliah' => 'Pemrograman Web',
             'dosen' => 'Dr. Budi Santoso',
-            'created_by' => $logistik->id,
+            'created_by' => $admin->id,
         ]);
 
         JadwalAkademik::create([
@@ -32,7 +32,7 @@ class JadwalAkademikSeeder extends Seeder
             'jam_selesai' => '12:00',
             'mata_kuliah' => 'Basis Data',
             'dosen' => 'Dr. Siti Aminah',
-            'created_by' => $logistik->id,
+            'created_by' => $admin->id,
         ]);
     }
 }

@@ -38,6 +38,9 @@ class RuanganService
 
     public function delete(Ruangan $ruangan): bool
     {
+        if ($ruangan->reservasis()->whereIn('status', ['menunggu_ssc', 'menunggu_logistik', 'disetujui'])->exists()) {
+            throw new \Exception('Ruangan tidak dapat dihapus karena masih ada reservasi aktif.');
+        }
         return $ruangan->delete();
     }
 

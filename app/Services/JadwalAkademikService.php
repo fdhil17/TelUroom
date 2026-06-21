@@ -78,12 +78,14 @@ class JadwalAkademikService
 
         $bentrokReservasi = Reservasi::where('ruangan_id', $data['ruangan_id'])
             ->where('status', 'disetujui')
-            ->whereRaw('DAYNAME(tanggal_reservasi) = ?', [$hariMapping[$data['hari']]])
             ->where(function ($q) use ($data) {
                 $q->where('jam_mulai', '<', $data['jam_selesai'])
                   ->where('jam_selesai', '>', $data['jam_mulai']);
             })
-            ->exists();
+            ->get()
+            ->contains(function ($reservasi) use ($hariMapping, $data) {
+                return \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->format('l') === $hariMapping[$data['hari']];
+            });
 
         if ($bentrokReservasi) {
             throw ValidationException::withMessages([
